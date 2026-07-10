@@ -30,6 +30,8 @@ services:
     build: ./nginx
     ports:
       - '8083:80'
+    networks:
+      - front-tier
 
   result:
     build: ./result
