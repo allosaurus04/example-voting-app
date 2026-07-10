@@ -4,7 +4,7 @@
 
 services:
   vote:
-    build: 
+    build: #pointing to a dockerfile in vote folder
       context: ./vote
       target: dev
     depends_on:
@@ -23,6 +23,13 @@ services:
     networks:
       - front-tier
       - back-tier
+    deploy:
+      replicas : 3
+
+  nginx:
+    build: ./nginx
+    ports:
+      - '8083:80'
 
   result:
     build: ./result
