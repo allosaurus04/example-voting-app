@@ -1,5 +1,7 @@
 # base defines a base stage that uses the official python runtime base image
-FROM python:3.11-slim AS base
+FROM python:3.13-slim AS base
+
+LABEL maintainer = "Name <http://github.com/allosaurus04>" 
 
 # Add curl for healthcheck
 RUN apt-get update && \
@@ -9,14 +11,14 @@ RUN apt-get update && \
 # Set the application directory
 WORKDIR /usr/local/app
 
-# Install our requirements.txt
+# copy dependencies before source code
 COPY requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # dev defines a stage for development, where it'll watch for filesystem changes
 FROM base AS dev
 RUN pip install watchdog
-ENV FLASK_ENV=development
+ENV FLASK_ENV=development~
 CMD ["python", "app.py"]
 
 # final defines the stage that will bundle the application for production
