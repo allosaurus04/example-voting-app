@@ -23,8 +23,7 @@ services:
     networks:
       - front-tier
       - back-tier
-    deploy:
-      replicas : 3
+   #instead docker compose up -d --scale vote = 3
 
   nginx:
     build: ./nginx
